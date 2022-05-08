@@ -32,10 +32,6 @@ def registration(request):
                 return redirect('registration')
             else:
                 myuser = User.objects.create_user(username=username,first_name=fname,last_name=lastname,email=email,password=password)
-                myuser.first_name = fname
-                myuser.lastname = lastname
-                myuser.email = email
-                myuser.password = password
                 myuser.save()
                 return redirect('login')
         else:
@@ -56,3 +52,7 @@ def login(request):
         else:
             messages.info(request, 'Please enter valid Credentials')
     return render(request, 'login.html')
+
+def logout(request):
+    auth.logout(request)
+    return redirect('/')
